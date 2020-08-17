@@ -12,15 +12,27 @@ window.Cart = {
 
         },
 
+    removeProductFromCart: function (productId) {
+        let userId = 1;
+        $.ajax({
+            method: "DELETE",
+            url:Cart.API_URL + "/carts/"+ userId + "/" + productId,
+
+        }).done(function(response) {
+            window.location.reload()
+    });
+    },
+
+
     getProductInCartHtml: function (product) {
         return `
         <tr class="cart_item">
                                             <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="#">×</a> 
+                                                <a title="Remove this item" class="remove" onclick="Cart.removeProductFromCart(${product.id})">×</a> 
                                             </td>
 
                                             <td class="product-thumbnail">
-                                                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
+                                                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-00.jpg"></a>
                                             </td>
 
                                             <td class="product-name">
@@ -53,7 +65,9 @@ window.Cart = {
 
         $('table.shop_table.cart tbody').html(productRows);
 
-    }
+    },
 
-};
+
+
+    }
 Cart.getCart();
